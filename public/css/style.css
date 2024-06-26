@@ -1,0 +1,102 @@
+html, body {
+    height: 100%;
+}
+body.size_sm {
+    font-size: 0.9rem;
+}
+h1.size_sm {
+    font-size: 2.2rem;
+}
+h4.size_sm {
+    font-size: 1.4rem;
+}
+header {
+    background-color: #a8cf38;
+}
+#wrap {
+    min-height: 100%;
+}
+#main {
+    /*overflow:auto;*/
+    padding-bottom:100px; /* this needs to be bigger than footer height*/
+}
+img.container_login {
+    background-size: cover;
+    opacity: 0.1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.wrapper {
+    min-height: 70%;
+}
+.bg-footer {
+    background-color: #b0ca24;
+    position: relative;
+    width: 100%;
+    clear:both;
+    padding-top:20px;
+    margin-top: -100px;
+    height: 100px;
+    line-height: 60px;
+}
+.territoire {
+    background-color: rgba(168,207,56,0.1);
+    width: 100px;
+}
+.territoire:first-of-type {
+    width: 40px;
+}
+.table-title {
+    max-width: 100%;
+    width: 100%;
+    font-size: 1.1em;
+    line-height: 1.1em;
+    margin-bottom: 5px;
+}
+table.table-title td {
+    width: 33%;
+}
+th, td {
+    text-align: center;
+}
+a.ancre_haut {
+    display: block;
+    float: right;
+    text-align: right;
+}
+#drop_down_list_1 {
+    position: absolute;
+    top: 80px;
+    right: 2%;
+}
+#navRight {
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    z-index: 1000;
+    display: none;
+}
+input.alert[type="file"] {
+    background-color: yellow;
+    border: 3px solid red;
+}
+div.form {
+    margin-bottom: 2em;
+}
+fieldset {
+    margin-top: 1em;
+}
+.var_fd_logemt_col label {
+    display: inline-block;
+}
+.var_fd_logemt_col {
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    columns: 3;
+}
+.btn-block + .btn-block {
+    margin-top: 0;
+}
