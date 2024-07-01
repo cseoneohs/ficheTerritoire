@@ -23,6 +23,9 @@ if (!function_exists('functionSetLibelTerritoire')) {
             $libel = strstr($terr, '_', true);
             $listCommuneSecteur = $fiche->perimetre->perimCompSecteur[$libel];
             $toDisplay = (strstr($listCommuneSecteur, $isCommune)) ? true : false;
+        } elseif (strstr($terr, 'region')) {
+            $codeReg = ltrim(strstr($terr, 'region'), 'region');
+            $libel = $fiche->perimetre['regionLib'][$codeReg];
         } elseif (strstr($terr, 'departement')) {
             $codeDept = ltrim(strstr($terr, 'departement'), 'departement');
             $libel = $fiche->perimetre['deptLib'][$codeDept];

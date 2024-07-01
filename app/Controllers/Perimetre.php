@@ -177,8 +177,7 @@ class Perimetre extends BaseController
         // var_dump($perimetre);exit;
         $perimetreComp = $this->request->getPost('chkTerritoire');
         if (is_array($perimetreComp)) {
-            if (in_array('secteur', $perimetreComp)) {
-                d($perimetre);
+            if (in_array('secteur', $perimetreComp)) {                
                 $perimetre['secteurLib'] = $this->PerimetreModel->selectSect($_SESSION['secteurLibel']);
             }
             if (in_array('epci', $perimetreComp)) {
@@ -190,6 +189,13 @@ class Perimetre extends BaseController
                     $perimetreComp[] = 'departement'.$code;
                 }
                 unset($perimetreComp[array_search('departement', $perimetreComp)]);
+            }
+            if (in_array('region', $perimetreComp)) {
+                $perimetre['regionLib'] = $this->PerimetreModel->selectRegion($perimetre['region']);
+                foreach (array_keys($perimetre['regionLib']) as $code) {
+                    $perimetreComp[] = 'region'.$code;
+                }
+                unset($perimetreComp[array_search('region', $perimetreComp)]);
             }
         }
         $fiche = $this->request->getPost('chkFiche');

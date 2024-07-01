@@ -95,8 +95,8 @@ class FicheModel extends Model
             case 'france':
                 $whereComp = ' 1';
                 break;
-            case 'region':
-                $region = $this->perimetre['region'][0];
+            case strstr($geo, 'region'):                
+                $region = ltrim(strstr($geo, 'region'), 'region');
                 $whereComp = 'code_insee IN (SELECT codegeo FROM ts_geo_commune WHERE commune_reg =' . $region . ')';
                 break;
             case strstr($geo, 'departement'):

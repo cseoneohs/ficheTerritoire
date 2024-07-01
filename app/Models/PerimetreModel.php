@@ -74,6 +74,32 @@ class PerimetreModel extends Model
     }
 
     /**
+     * recherche des régions
+     * @return array
+     */
+    public function selectRegion($codeRegion = null)
+    {
+        if (is_null($codeRegion)) {
+            $where = " WHERE 1";
+        } else {
+            $cRegion = array_unique($codeRegion);
+            $code = array();
+            foreach ($cRegion as $value) {
+                $code[] = '"' . $value . '"';
+            }
+            $region = implode(',', $code);
+            $where = ' WHERE code_region IN (' . $region . ')';
+        }
+        $sql = "SELECT code_region, lib_region FROM ts_geo_region " . $where;
+        $query = $this->db->query($sql);
+        $result = $query->getResultArray();
+        foreach ($result as $values) {
+            $reg[$values['code_region']] = $values['lib_region'];
+        }
+        return $reg;
+    }
+    
+    /**
      * recherche des départements
      * @return array
      */
