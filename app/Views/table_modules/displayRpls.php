@@ -61,7 +61,7 @@ if (!function_exists('displayCarto')) {
 
             for ($i = 0; $i < count($variable['var']); $i++) {
                 if (!isset($value[$variable['var'][$i]])) {
-                    return;
+                    $value[$variable['var'][$i]]=0;
                 }
                 $dataJsonAll[$i][$key] = ['var' => !is_null($value[$variable['var'][$i]]) ? round($value[$variable['var'][$i]]) : 0];
             }

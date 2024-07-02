@@ -47,7 +47,7 @@ class CartoModel extends FicheModel
         }
         $this->geoData = $this->perimetre['codeEtude'];
         $geo = implode(",", $this->geoData);
-        $sql = "SELECT CONCAT('\"type\": \"Feature\",\"geometry\":', ST_AsGeoJSON(ST_GeomFromWKB(SHAPE)),',\"properties\": {\"code_insee\": \"',codgeo,'\",\"lib_commune\": \"',libgeo,'\"}') as geojson FROM geo_com2020_geojson WHERE codgeo IN ($geo)";
+        $sql = "SELECT CONCAT('\"type\": \"Feature\",\"geometry\":', ST_AsGeoJSON(ST_GeomFromWKB(ST_AsWKB(SHAPE))),',\"properties\": {\"code_insee\": \"',codgeo,'\",\"lib_commune\": \"',libgeo,'\"}') as geojson FROM geo_com2020_geojson WHERE codgeo IN ($geo)";
         //$sql = "SELECT CONCAT('\"type\": \"Feature\",\"geometry\":', ST_AsGeoJSON(ST_GeomFromWKB(SHAPE)), ',\"type\": \"Point\", \"coordinates\": [', xcl4326,',', ycl4326, ',]', ',\"properties\": {\"code_insee\": \"',codgeo,'\",\"lib_commune\": \"',libgeo,'\"}') as geojson FROM geo_com2020_geojson WHERE codgeo IN ($geo)";
         //echo $sql;
         $query1 = $this->db->query($sql);
