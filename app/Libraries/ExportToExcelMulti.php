@@ -214,43 +214,10 @@ class ExportToExcelMulti
     {
         foreach ($dataset as $values) {
             foreach ($values as $year => $val_1) {
-                $this->setSheetHeader('SNE au 31/12', $year, $row++);
-                foreach ($val_1 as $sstitle => $vals) {
-                    $this->setTitleHeader($row++, $sstitle);
-                    $newline = $seconline = true;
-                    $row++;
-                    if ($newline) {
-                        $col = 1;
-                        $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], "");
-                        $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], "Territoire");
-                        foreach ($vals[key($vals)] as $key => $value) {
-                            $headercol = strpos($key, "_pc") ? '' : array_search($key, $vars);
-                            $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], $headercol);
-                        }
-                        $colheader = 3;
-                        foreach ($vals[key($vals)] as $key) {
-                            $this->spreadsheet->getActiveSheet()->mergeCellsByColumnAndRow($colheader++, $row, $colheader++, $row);
-                        }
-                        $newline = false;
-                        $row++;
-                    }
-                    if ($seconline) {
-                        $col = 1;
-                        $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], "");
-                        $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], "");
-                        foreach ($vals[key($vals)] as $key => $values) {
-                            $headercol = strpos($key, "_pc") ? '%' : 'Nb';
-                            $this->spreadsheet->getActiveSheet()->setCellValue([$col++, $row], $headercol);
-                        }
-                        $seconline = false;
-                        $row++;
-                    }
-                    $col = 1;
-                    $row++;
-                    $row = $this->setSheetValues($vals, $row++, $perimetre);
-                    $row++;
-                }
-                //saut de ligne entre 2 variables
+                $this->setSheetHeader('SNE au demande au 1/1, NB d’attributions', $year, $row++);
+                $this->setColHeader($val_1, $row);
+                $row++;
+                $row = $this->setSheetValues($val_1, $row++, $perimetre);
                 $row++;
             }
         }
@@ -261,7 +228,6 @@ class ExportToExcelMulti
         $contexte = ($key == 'sitadel_commence') ? 'commencés' : 'autorisés';
         $ssTitle = "Nombre de logements " . $contexte . " en date réelle en ";
         $annee = ($key == 'sitadel_commence') ? $perimetre['anneeSitadel'] : $perimetre['anneeSitadelAutorise'];
-        $title = "Fiche detail :: Sit@del " . $contexte;
         $this->setSheetHeader("Sit@del " . $contexte, $annee, $row++);
         foreach ($dataset as $values) {
             foreach ($values as $annee => $val_1) {
@@ -423,7 +389,7 @@ class ExportToExcelMulti
 
     /**
      * Ecriture des données
-     * @param array $param le tableau contenat les données
+     * @param array $param le tableau contenant les données
      * @param int $row
      * @param array $perimetre
      */

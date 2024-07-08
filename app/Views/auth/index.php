@@ -1,9 +1,11 @@
 <?php
 echo view('auth/templates/header_login.php');
 ?>
+<link href="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/datatables.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/v/dt/jq-3.7.0/dt-2.0.8/datatables.min.js"></script>
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col">
             <div class="card bg-light mt-3">
                 <h1 class="card-header"><i class="fas fa-users"></i>&nbsp;<?php echo lang('Auth.index_heading'); ?> (Droits d'accès)</h1>
                 <p><?php echo lang('Auth.index_subheading'); ?></p>
@@ -43,5 +45,18 @@ echo view('auth/templates/header_login.php');
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var table = new DataTable('#table_auth', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/fr-FR.json',
+            },
+            info: false,
+            paging: false,
+            order: [[4, 'asc'], [1, 'asc']]
+
+        });
+    });
+</script>
 <?php
 echo view('auth/templates/footer_login.php');

@@ -87,7 +87,7 @@ $data = $dataSet[$source];
             echo '<div class="row">';
             $annee = array_keys($data['sne_detail']);
             echo '<div class="col" id="sne_detail">';
-            echo '<h1>Fiche ' . $fiche->ficheType . ' ::  SNE au 31/12 :: ' . $annee[0] . ' </h1>';
+            echo '<h1>Fiche ' . $fiche->ficheType . ' ::  Demande au 1/1/' . $annee[0] . ' NB d’attributions en  ' . $annee[0] . '</h1>';
             displaySne($data, $territoire, $fiche, $tCroisement);
             echo '</div>';
             echo '</div>';
