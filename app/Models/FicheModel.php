@@ -95,7 +95,7 @@ class FicheModel extends Model
             case 'france':
                 $whereComp = ' 1';
                 break;
-            case strstr($geo, 'region'):                
+            case strstr($geo, 'region'):
                 $region = ltrim(strstr($geo, 'region'), 'region');
                 $whereComp = 'code_insee IN (SELECT codegeo FROM ts_geo_commune WHERE commune_reg =' . $region . ')';
                 break;
@@ -115,15 +115,15 @@ class FicheModel extends Model
                 $whereComp = 'code_insee IN (' . $code . ')';
                 break;
             case 'secteur':
-                $secteur = $this->perimetre['secteur'][key($this->perimetre['secteur'])]['libel'];
-                $sql0 = 'SELECT codegeo FROM ts_geo_secteur WHERE libel LIKE "' . $secteur . '"';
-                $query = $this->db->query($sql0);
-                $result0 = $query->getResultArray();
-                if (strpos($result0[0]['codegeo'], ',')) {
-                    $listCommunes = str_replace(',', "','", $result0[0]['codegeo']);
-                    $listCommunes = "'" . $listCommunes . "'";
+                $secteurs = $this->perimetre['secteur'][key($this->perimetre['secteur'])];                
+                if (count($secteurs) == count($secteurs, COUNT_RECURSIVE)) {
+                    $listCommunes = $secteurs['codegeo'];
                 } else {
-                    $listCommunes = $result0[0]['codegeo'];
+                    $listCommunes = '';
+                    foreach ($secteurs as $secteur) {
+                        $listCommunes .= $secteur['codegeo'] . ',';
+                    }
+                    $listCommunes = rtrim($listCommunes, ',');                    
                 }
                 $whereComp = 'code_insee IN (' . $listCommunes . ')';
                 break;

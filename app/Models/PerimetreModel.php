@@ -200,8 +200,12 @@ class PerimetreModel extends Model
     {
         //d($codegeo);
         if (!is_null($codegeo)) {
-            $codegeo = is_array($codegeo) ? $codegeo[0] : $codegeo;
-            $where = ' codegeo LIKE "' . $codegeo . '"';
+            $code = array();
+                foreach ($codegeo as $value) {                    
+                    $code[] = '"' . $value . '"';
+                }
+                $secteurs = implode(',', $code);           
+            $where = ' codegeo IN (' .$secteurs. ')';
         } elseif (!is_null($codeEpci)) {
             $code = array();
             foreach ($codeEpci['code'] as $value) {
@@ -239,7 +243,13 @@ class PerimetreModel extends Model
                 $where = ' WHERE codegeo IN (' . $communes . ')';
                 break;
             case 'secteur':
-                $where = ' WHERE codegeo IN (' . $perimetre['code'] . ')';
+                $code = array();
+                foreach ($perimetre['code'] as $value) {
+                    $vals = str_replace(',', '","', $value);
+                    $code[] = '"' . $vals . '"';
+                }
+                $secteurs = implode(',', $code);
+                $where = ' WHERE codegeo IN (' . $secteurs . ')';
                 break;
             case 'epci':
                 $code = array();

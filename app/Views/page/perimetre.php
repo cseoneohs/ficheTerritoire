@@ -260,7 +260,7 @@ if (isset($_SESSION['reponseImport'])) {
                     <div class="form-row" id="selectSecteur">
                         <label class="col-md-4 col-form-label" for="perimEtuSect">Secteur</label>
                         <div class="col-md-8">
-                            <select class="custom-select" id="perimEtuSect" name="perimEtuSect">
+                            <select class="multiple form-control" id="perimEtuSect" name="perimEtuSect[]" multiple="multiple">
                                 <option value=""></option>
                                 <?php
                                 if (isset($tSect) AND is_array($tSect)) {

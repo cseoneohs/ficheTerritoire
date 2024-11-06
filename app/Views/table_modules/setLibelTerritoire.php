@@ -1,6 +1,7 @@
 <?php
 
 if (!function_exists('functionSetLibelTerritoire')) {
+
     /**
      * Retourne le nom du territoire
      * @param string $terr le type de territoire
@@ -31,6 +32,16 @@ if (!function_exists('functionSetLibelTerritoire')) {
             $libel = $fiche->perimetre['deptLib'][$codeDept];
         } elseif ($terr == 'epci') {
             $libel = $fiche->perimetre['epciLib'];
+        } elseif ($terr == 'secteur') {
+            if (count($fiche->perimetre['secteurLib']) == count($fiche->perimetre['secteurLib'], COUNT_RECURSIVE)) {
+                $libel = $fiche->perimetre['secteurLib']['libel'];
+            } else {
+                $libel = '';
+                foreach ($fiche->perimetre['secteurLib'] as $secteur) {
+                    $libel .= $secteur['libel'] . ',';
+                }
+                $libel = rtrim($libel, ',');
+            }
         } else {
             $libel = array_search($terr, $fiche->perimetre['labelEtude']);
         }
