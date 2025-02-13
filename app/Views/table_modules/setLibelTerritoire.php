@@ -10,8 +10,7 @@ if (!function_exists('functionSetLibelTerritoire')) {
      * @param boolean | string $code
      * @return string le libellé du territoire
      */
-    function setLibelTerritoire($terr, $fiche, &$toDisplay, &$code = null)
-    {
+    function setLibelTerritoire($terr, $fiche, &$toDisplay, &$code = null) {
         //si le territoire est une commune
         if (preg_match('/\A[0-9]{5}\z/', $terr)) {
             $isCommune = $terr;
@@ -32,16 +31,9 @@ if (!function_exists('functionSetLibelTerritoire')) {
             $libel = $fiche->perimetre['deptLib'][$codeDept];
         } elseif ($terr == 'epci') {
             $libel = $fiche->perimetre['epciLib'];
-        } elseif ($terr == 'secteur') {
-            if (count($fiche->perimetre['secteurLib']) == count($fiche->perimetre['secteurLib'], COUNT_RECURSIVE)) {
-                $libel = $fiche->perimetre['secteurLib']['libel'];
-            } else {
-                $libel = '';
-                foreach ($fiche->perimetre['secteurLib'] as $secteur) {
-                    $libel .= $secteur['libel'] . ',';
-                }
-                $libel = rtrim($libel, ',');
-            }
+        } elseif (strstr($terr, 'secteur')) {
+            $codeSect = ltrim(strstr($terr, 'secteur'), 'secteur');
+            $libel = $fiche->perimetre['secteurLib'][$codeSect]['libel'];
         } else {
             $libel = array_search($terr, $fiche->perimetre['labelEtude']);
         }

@@ -179,6 +179,10 @@ class Perimetre extends BaseController
         if (is_array($perimetreComp)) {
             if (in_array('secteur', $perimetreComp)) {                
                 $perimetre['secteurLib'] = $this->PerimetreModel->selectSect($_SESSION['secteurLibel']);
+                foreach ($perimetre['secteurLib'] as $sect) {                    
+                    $perimetreComp[$sect['code']] = 'secteur'.$sect['code'];                    
+                }
+                unset($perimetreComp[array_search('secteur', $perimetreComp)]);
             }
             if (in_array('epci', $perimetreComp)) {
                 $perimetre['epciLib'] = $this->PerimetreModel->selectEpci($perimetre['epci']);

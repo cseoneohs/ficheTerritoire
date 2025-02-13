@@ -219,6 +219,11 @@ class PerimetreModel extends Model
         $sql = "SELECT * FROM ts_geo_secteur WHERE " . $where;
         $query = $this->db->query($sql);
         $result = $query->getResultArray();
+        foreach ($result as $key => $value) {
+            $result[$value['code']] = $value;
+            unset($result[$key]);
+        }  
+        return($result);
         if (count($result) == 1 && !is_null($codegeo)) {
             return($result[0]);
         } else {

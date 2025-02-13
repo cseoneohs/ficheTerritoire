@@ -334,7 +334,10 @@ class ExportToExcelMulti
         } elseif (strstr($param, 'region')) {
             $code = ltrim(strstr($param, 'region'), 'region');
             $libgeo = $perimetre['regionLib'][$code];
-        } elseif ($param == 'france') {
+        } elseif (strstr($param, 'secteur')) {
+            $codeSect = ltrim(strstr($param, 'secteur'), 'secteur');
+            $libgeo = $perimetre['secteurLib'][$codeSect]['libel'];
+        }  elseif ($param == 'france') {
             $libgeo = "France";
         }
         return $libgeo;

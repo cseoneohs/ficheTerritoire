@@ -13,15 +13,13 @@ use CodeIgniter\Model;
 /**
  * Model de base contenant des méthode utilisées par les autres class Model
  */
-class FicheModel extends Model
-{
+class FicheModel extends Model {
 
     public $perimetre = null;
     public $ficheType = null;
     protected $tRubrique = array();
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->db = \Config\Database::connect();
 
         /**
@@ -38,8 +36,7 @@ class FicheModel extends Model
     /**
      * Initialise le perimetre
      */
-    private function setPerimetre()
-    {
+    private function setPerimetre() {
         if (!isset($_SESSION['perimetre'])) {
             return;
         }
@@ -58,8 +55,7 @@ class FicheModel extends Model
      * version de array_merge_recursive conservant les cles des tableaux
      * @return array
      */
-    protected function arrayMergeRecursiveMy()
-    {
+    protected function arrayMergeRecursiveMy() {
         $arrays = func_get_args();
         $base = array_shift($arrays);
 
@@ -77,8 +73,7 @@ class FicheModel extends Model
         return $base;
     }
 
-    protected function getGeoComp($geo)
-    {
+    protected function getGeoComp($geo) {
         switch ($geo) {
             case 'commune':
                 if (count($this->perimetre["code"]) == 1) {
@@ -114,18 +109,12 @@ class FicheModel extends Model
                 $code = $this->perimetre['scot'][$this->perimetre['codeEtude'][0]]['codegeo'];
                 $whereComp = 'code_insee IN (' . $code . ')';
                 break;
-            case 'secteur':
-                $secteurs = $this->perimetre['secteur'][key($this->perimetre['secteur'])];                
-                if (count($secteurs) == count($secteurs, COUNT_RECURSIVE)) {
-                    $listCommunes = $secteurs['codegeo'];
-                } else {
-                    $listCommunes = '';
-                    foreach ($secteurs as $secteur) {
-                        $listCommunes .= $secteur['codegeo'] . ',';
-                    }
-                    $listCommunes = rtrim($listCommunes, ',');                    
-                }
-                $whereComp = 'code_insee IN (' . $listCommunes . ')';
+            case strstr($geo, 'secteur'):
+                $secteurs = ltrim(strstr($geo, 'secteur'), 'secteur');
+                $sql = 'SELECT `codegeo` FROM `ts_geo_secteur` WHERE `code`=' . $secteurs;
+                $query = $this->db->query($sql);
+                $result = $query->getRow();
+                $whereComp = 'code_insee IN (' . $result->codegeo . ')';
                 break;
             default :
                 break;
@@ -134,13 +123,11 @@ class FicheModel extends Model
         return $whereComp;
     }
 
-    public function getSousRubrique()
-    {
+    public function getSousRubrique() {
         return $this->tRubrique;
     }
 
-    public function getVarLibel($param)
-    {
+    public function getVarLibel($param) {
         $sql = "SELECT variable, libelle FROM ts_var_libelle WHERE source LIKE '" . $param . "'";
         $query = $this->db->query($sql);
         $result = array();
