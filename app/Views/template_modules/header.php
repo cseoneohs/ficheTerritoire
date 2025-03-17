@@ -32,12 +32,10 @@ $string_url = (strstr($string_url, 'outil')) ? 'outil' : $string_url;
                             <div class="row">
                                 <div class="col-6" id="logo">
                                     <a href="<?php echo base_url(); ?>" class="logo">
-                                        <img title="" alt="EOHS : Etude, observation, habitat, statistique" src="<?php echo base_url('/images/logo-eohs-1.png') ?>" class="logo">
+                                        <img title="" alt="HTC : habitat & territoires conseil" src="<?php echo base_url('/images/logo-eohs-1.png') ?>" class="logo">
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <br>
-                                    <img class="float-right" alt="Etudes observation habitat statistique" src="<?php echo base_url('/images/etudes_observation_habitat_statistique.png') ?>">
                                 </div>
                             </div>
                         </div>

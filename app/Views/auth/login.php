@@ -6,7 +6,7 @@ echo view('auth/templates/header_login.php');
     <div class="row">
         <div class="col-lg-6 offset-lg-3">
             <div class="card shadow bg-light mt-3">
-                <h2 class="card-header">EOHS - Fiches Territoire</h2>
+                <h2 class="card-header">HTC - Fiches Territoire</h2>
                 <h3 class="card-header"><i class="fas fa-user-shield"></i>&nbsp;<?php echo lang('Auth.login_heading'); ?></h3>
                 <div class="card-body">
                     <p><?php echo lang('Auth.login_subheading'); ?></p>
