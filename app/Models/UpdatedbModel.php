@@ -44,7 +44,7 @@ class UpdatedbModel extends Model
         $query = $this->db->query($sql);
         foreach ($query->getResultArray() as $row) {
             $result = $pQuery->execute($row['code_insee_nouvelle_commune'], $row['code_insee_ancienne_commune']);
-            if ($result->connID->affected_rows != 0) {
+            if ($this->db->affected_rows != 0) {
                 echo '&nbsp;-&nbsp;' . $row['code_insee_ancienne_commune'] . ' remplacée par ' . $row['code_insee_nouvelle_commune'] . '<br>';
             }
         }

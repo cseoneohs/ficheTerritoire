@@ -21,4 +21,5 @@ $routes->group('auth', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('reset_password/(:hash)', 'Auth::reset_password/$1');
     $routes->post('reset_password/(:hash)', 'Auth::reset_password/$1');
     // ...
+    $routes->add('UpdateDb', 'UpdateDb::index');
 });
